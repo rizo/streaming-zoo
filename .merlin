@@ -1,0 +1,4 @@
+S src examples
+B _build/src _build/examples
+PKG elements
+

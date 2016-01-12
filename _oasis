@@ -1,0 +1,32 @@
+Name: streams
+Version: 0.0.0
+License: BSD-2-clause
+Authors: Rizo Isrof <rizo@odis.io>
+Homepage: http://github.com/rizo/streams
+OASISFormat: 0.4
+BuildTools: camlp4o,ocamlbuild
+Plugins: META (0.4), DevFiles (0.4)
+
+Synopsis:
+  Implementations of common streaming abstractions in OCaml.
+
+Library "streams"
+  Path:           src
+  CompiledObject: best
+  Modules:        Streams, Infinite_lazy_list
+  BuildDepends:   elements
+  Install:        true
+
+Executable "demo"
+  Path: examples
+  MainIs: demo.ml
+  CompiledObject: best
+  Install: false
+  BuildDepends: streams, elements
+
+
+SourceRepository master
+  Type:     git
+  Location: https://github.com/rizo/streams.git
+  Browser:  https://github.com/rizo/streams
+
