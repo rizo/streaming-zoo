@@ -4,7 +4,7 @@ Implementations of common streaming abstractions.
 
 Currently the implementation of the following abstractions is provided:
 
-- [ ] Coroutines Streams
+- [ ] Coroutines
 - [x] Generators
 - [ ] Iteratees
 - [ ] Iterators
