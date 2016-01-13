@@ -1,37 +1,37 @@
 
 open Elements
 
-type 'a t = :: of 'a * 'a t lazy_t
+type 'a t = Nil | :: of 'a * 'a t lazy_t
 
 let cons x xs = x :: lazy xs
 
 (* Functor *)
-let rec fmap f (x :: lazy xs) = f x :: lazy (fmap f xs)
+let rec fmap f = function
+  | x :: lazy xs -> f x :: lazy (fmap f xs)
+  | Nil -> Nil
 
-let head (x :: _) = x
+let head = function
+  | x :: _ -> Some x
+  | Nil -> None
 
 let rec repeat x = x :: lazy (repeat x)
 
-let tail (_ :: lazy xs) = xs
+let tail = function
+  | _ :: lazy xs -> Some xs
+  | Nil -> None
 
-let rec map f (x :: lazy xs) = f x :: lazy (map f xs)
+let rec map f = function
+  | x :: lazy xs -> f x :: lazy (map f xs)
+  | Nil -> Nil
 
-let rec zip_with f (x :: lazy xs) (y :: lazy ys) = f x y :: lazy (zip_with f xs ys)
-
-(* Monad *)
-let rec join (xs :: lazy xss) = head xs :: lazy (join (map tail xss))
-
-let return x = repeat x
-
-let (>>=) xs f = join (fmap f xs)
-
-(* Applicative *)
-let pure x = repeat x
-let (<*>) = zip_with (fun f x -> f x)
+let rec zip_with f l1 l2 =
+  match l1, l2 with
+  | x :: lazy xs, y :: lazy ys -> f x y :: lazy (zip_with f xs ys)
+  | _, _ -> fail "Lazy_list.zip_with: both lists must be non-empty"
 
 (* Show *)
 let rec show show_x (x :: _) =
-  "Infinite_lazy_list.t " ^ show_x x ^ " :: <lazy>"
+  "Lazy_list.t " ^ show_x x ^ " :: <lazy>"
 
 let rec intersperse y (x :: lazy xs) = x :: lazy (y :: lazy (intersperse y xs))
 
