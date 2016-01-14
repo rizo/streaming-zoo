@@ -13,16 +13,32 @@ Synopsis:
 Library "streams"
   Path:           src
   CompiledObject: best
-  Modules:        Streams, Infinite_lazy_list
+  Modules:
+    Streams,
+    Partial_infinite_zlist,
+    Partial_infinite_klist,
+    Total_infinite_klist,
+    Strict_finite_list,
+    Seq,
+    Seq_safe
+# NativeOpt:      -nodynlink
   BuildDepends:   elements
   Install:        true
 
-Executable "demo"
-  Path: examples
-  MainIs: demo.ml
+# Executable "demo"
+#   Path: examples
+#   MainIs: demo.ml
+#   CompiledObject: best
+#   Install: false
+#   BuildDepends: streams, elements
+
+Executable "list_implementations"
+  Path: bench
+  MainIs: list_implementations.ml
   CompiledObject: best
   Install: false
-  BuildDepends: streams, elements
+  BuildDepends: streams, threads, core, core_bench, io
+
 
 
 SourceRepository master

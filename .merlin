@@ -1,4 +1,11 @@
-S src examples
-B _build/src _build/examples
+S src
+S examples
+S bench
+B _build/src
+B _build/examples
+B _build/bench
 PKG elements
+PKG core
+PKG core_bench
+PKG io
 

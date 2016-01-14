@@ -26,6 +26,8 @@ let take n seq k =
         k x)
   with ExitTake -> ()
 
+exception Fold_stop_sequence
+
 let fold f acc seq =
   let r = ref acc in
   seq (fun elt -> r := f !r elt);
