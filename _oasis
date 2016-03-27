@@ -13,33 +13,35 @@ Synopsis:
 Library "streams"
   Path:           src
   CompiledObject: best
-  Modules:
-    Streams,
-    Partial_infinite_zlist,
-    Partial_infinite_klist,
-    Total_infinite_klist,
-    Strict_finite_list,
-    Seq,
-    Seq_safe
-# NativeOpt:      -nodynlink
-  BuildDepends:   elements
   Install:        true
+  BuildDepends:   elements
+  Modules:
+     Streams,
+     Streams_seq,
+     Streams_seq_safe,
+     Streams_gen,
+     Streams_fusion
 
-# Executable "demo"
-#   Path: examples
-#   MainIs: demo.ml
-#   CompiledObject: best
-#   Install: false
-#   BuildDepends: streams, elements
+#Executable "list_implementations"
+#  Path: bench
+#  MainIs: list_implementations.ml
+#  CompiledObject: best
+#  Install: false
+#  BuildDepends: streams, threads, core, core_bench, io
 
-Executable "list_implementations"
+Executable "bench_basic"
   Path: bench
-  MainIs: list_implementations.ml
+  MainIs: bench_basic.ml
   CompiledObject: best
   Install: false
-  BuildDepends: streams, threads, core, core_bench, io
-
-
+  NativeOpt: -nodynlink -noassert -unsafe -nodynlink -inline 100
+  CCOpt: -O3 -fno-PIC
+  BuildDepends:
+    threads,
+    core_bench,
+    dataflow,
+    elements,
+    streams
 
 SourceRepository master
   Type:     git
