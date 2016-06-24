@@ -19,5 +19,5 @@ Currently the implementation of the following abstractions is provided:
 - [x] Total finite continuation list
 - [x] Total infinite continuation list
 - [ ] Total infinite lazy list
-- [ ] Transducers
+- [x] Transducers
 
