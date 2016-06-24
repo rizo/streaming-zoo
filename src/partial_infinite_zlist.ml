@@ -1,7 +1,5 @@
 
-open Elements
-
-type 'a t = :: of 'a * 'a t lazy_t
+type 'a t = (::) of 'a * 'a t lazy_t
 
 let cons x xs = x :: lazy xs
 
@@ -48,7 +46,7 @@ let rec iterate f x = x :: lazy (iterate f (f x))
 
 let rec cycle l =
   let rec loop l' =
-  if List.lenght l' = 0 then
+  if List.length l' = 0 then
     loop l
   else List.hd l' :: lazy (loop (List.tl l')) in
   loop l
@@ -62,7 +60,7 @@ let rec unfold f c =
 
 let take n xs =
   if n < 0 then
-    fail "Partial_lazy_infinite_list.take: negative argument"
+    failwith "Partial_lazy_infinite_list.take: negative argument"
   else
     let rec loop n (x :: lazy xs)=
       if n = 0 then []
@@ -71,7 +69,7 @@ let take n xs =
 
 let drop n xs =
   if n < 0 then
-    fail "Partial_lazy_infinite_list.drop: negative argument"
+    failwith "Partial_lazy_infinite_list.drop: negative argument"
   else
     let rec loop n xs =
       if n = 0 then xs
@@ -108,7 +106,7 @@ let rec group ?(eq = Pervasives.(=)) (x :: lazy ys) =
 
 let nth n xs =
   if n < 0 then
-    fail "Partial_lazy_infinite_list.nth: negative argument"
+    failwith "Partial_lazy_infinite_list.nth: negative argument"
   else
     let rec loop n (x :: lazy xs) =
       if n = 0 then x

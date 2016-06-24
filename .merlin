@@ -1,12 +1,7 @@
+
+S .
 S src
-S examples
-S bench
+
+B _build
 B _build/src
-B _build/examples
-B _build/bench
-
-PKG elements
-PKG dataflow
-PKG core_bench
-
 

@@ -42,8 +42,19 @@ let rec iota n =
     else Yield (n, fun () -> loop (c + 1)) in
   loop 0
 
+let rec init n f : (unit, 'a, unit) t =
+  let rec loop i =
+    if i = n then Ready ()
+    else Yield (f i, fun () -> loop (i + 1)) in
+  loop 0
+
 let rec count n =
   Yield (n, fun () -> count (n + 1))
+
+let rec of_list l =
+  match l with
+  | [] -> Ready ()
+  | x :: xs -> Yield (x, fun () -> of_list xs)
 
 let rec map f =
   Await (fun a -> Yield (f a, fun () -> map f))

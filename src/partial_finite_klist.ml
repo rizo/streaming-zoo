@@ -8,51 +8,34 @@ let rec fold f acc l =
   | Nil -> acc
   | Cons (x, k) -> fold f (f acc x) (k ())
 
-let rec fold_until f acc l =
+let rec count n =
+  Cons (n, fun () -> (count (n + 1)))
+
+let rec of_list l =
   match l with
-  | Cons (a, k) ->
-    begin match f acc a with
-    | `Continue acc -> fold_until f acc (k ())
-    | `Stop     acc -> acc
-    end
-  | Nil -> acc
+  | [] -> Nil
+  | x :: xs -> Cons (x, fun () -> of_list xs)
 
-let iota n =
-  let rec loop acc count =
-    if count = 0 then acc
-    else loop (Cons (count, fun () -> acc)) (count - 1) in
-  loop Nil n
+let rec init n f =
+  let rec loop i =
+    if i = n then Nil
+    else Cons (f i, fun () -> loop (i + 1)) in
+  loop 0
 
-let rev l =
-  let rec loop acc l =
-    match l with
-    | Nil -> acc
-    | Cons (x, k) -> loop (Cons (x, fun () -> acc)) (k ()) in
-  loop Nil l
+let rec map f l =
+  match l with
+  | Nil -> Nil
+  | Cons (x, l') -> Cons (f x, fun () -> map f (l' ()))
 
-let map f l =
-  rev (fold (fun acc x -> Cons (f x, fun () -> acc)) Nil l)
+let rec filter p l =
+  match l with
+  | Nil -> Nil
+  | Cons (x, l') when p x -> Cons (x, fun () -> filter p (l' ()))
+  | Cons (_, l') -> filter p (l' ())
 
-let filter_fold p l =
-  rev (fold (fun acc x ->
-      if p x then Cons (x, fun () -> acc)
-      else acc) Nil l)
-
-let take n l0 =
-  let rec loop n l acc =
-    if n = 0 then rev acc
-    else match l with
-      | Nil -> l0         (* n > length l0 => (take n l0 = l0), avoids rev *)
-      | Cons (x, xs) ->
-        loop (n - 1) xs (Cons (x, acc)) in
-  loop n l0 Nil
-
-(* let take_fold n l = *)
-  (* rev (fst *)
-         (* (fold_until *)
-            (* (fun (acc, c) x -> *)
-               (* if c = n *)
-               (* then `Stop (acc, c) *)
-               (* else `Continue (Cons (x, acc), c + 1)) *)
-            (* (Nil, 0) l)) *)
+let rec take n l =
+  if n = 0 then Nil
+  else match l with
+    | Nil -> Nil
+    | Cons (x, l') -> Cons (x, fun () -> take (n - 1) (l' ()))
 

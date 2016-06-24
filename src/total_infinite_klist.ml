@@ -1,8 +1,6 @@
 
-open Elements
-
 type 'a t = unit -> 'a s
- and 'a s = :: of 'a * 'a t
+ and 'a s = (::) of 'a * 'a t
 
 let rec count n () = n :: count (n + 1)
 

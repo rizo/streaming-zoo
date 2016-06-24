@@ -60,6 +60,9 @@ let take n (Stream (s, next)) =
 let count n =
   Stream (n, fun n -> Yield (n, n + 1))
 
+let init n f =
+  Stream (0, fun i -> if i = n then Done else Yield (f i, i + 1))
+
 let bench () =
   let r = count 0
           |> map    (fun x -> x + 1)

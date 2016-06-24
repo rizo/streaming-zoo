@@ -1,5 +1,5 @@
 Name: streams
-Version: 0.0.0
+Version: 0.1.0
 License: BSD-2-clause
 Authors: Rizo Isrof <rizo@odis.io>
 Homepage: http://github.com/rizo/streams
@@ -13,35 +13,24 @@ Synopsis:
 Library "streams"
   Path:           src
   CompiledObject: best
+  NativeOpt:      -noassert -O3
+  CCOpt:          -O3 -fno-PIC
   Install:        true
   BuildDepends:   elements
-  Modules:
-     Streams,
-     Streams_seq,
-     Streams_seq_safe,
-     Streams_gen,
-     Streams_fusion
-
-#Executable "list_implementations"
-#  Path: bench
-#  MainIs: list_implementations.ml
-#  CompiledObject: best
-#  Install: false
-#  BuildDepends: streams, threads, core, core_bench, io
-
-Executable "bench_basic"
-  Path: bench
-  MainIs: bench_basic.ml
-  CompiledObject: best
-  Install: false
-  NativeOpt: -nodynlink -noassert -unsafe -nodynlink -inline 100
-  CCOpt: -O3 -fno-PIC
-  BuildDepends:
-    threads,
-    core_bench,
-    dataflow,
-    elements,
-    streams
+  Modules:        Streams,
+                  Coroutine,
+                  Fusion_stream,
+                  Generator,
+                  Iterator,
+                  Partial_finite_klist,
+                  Partial_finite_zlist,
+                  Partial_infinite_klist,
+                  Partial_infinite_zlist,
+                  Sequence,
+                  Strict_finite_list,
+                  Total_finite_klist,
+                  Total_infinite_klist,
+                  Transducers
 
 SourceRepository master
   Type:     git

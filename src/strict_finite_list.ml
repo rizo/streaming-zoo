@@ -27,6 +27,14 @@ let iota n =
     else loop (Cons (count, acc)) (count - 1) in
   loop Nil n
 
+(* Init *)
+
+let init n f =
+  let rec loop acc i =
+    if i = n then acc
+    else loop (Cons (f i, acc)) (i + 1) in
+  loop Nil 0
+
 (* Rev *)
 
 let rev l =
