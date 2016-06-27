@@ -7,7 +7,7 @@ Currently the implementation of the following abstractions is provided:
 - [x] Coroutines
 - [x] Generators
 - [x] Iteratees
-- [ ] Iterators
+- [x] Iterators
 - [ ] Moore machines transducers
 - [x] Partial finite lazy list
 - [x] Partial infinite continuation list
