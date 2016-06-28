@@ -1,6 +1,6 @@
 # Streams
 
-Implementations of common streaming abstractions. A separte repository with benchmarks can be found at: [streams-bench](https://github.com/rizo/streams-bench).
+Implementations of common streaming abstractions. A separte repository with benchmarks can be found at [streams-bench](https://github.com/rizo/streams-bench).
 
 Currently the implementation of the following abstractions is provided:
 
